@@ -1,4 +1,4 @@
-package tw.kotlin.core.ui.welcome.components
+package tw.kotlin.core.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import tw.kotlin.core.ui.theme.StringResource
 
 @Composable
 fun Branding(
     modifier: Modifier = Modifier,
-    painter: Painter,
-    tagLine: String
+    painter: Painter
 ) {
     Column(
         modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically)
@@ -32,7 +32,7 @@ fun Branding(
             painter = painter
         )
         Text(
-            text = tagLine,
+            text = StringResource.tagLine,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier

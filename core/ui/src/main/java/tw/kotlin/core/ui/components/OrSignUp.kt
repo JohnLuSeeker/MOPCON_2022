@@ -10,22 +10,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import tw.kotlin.core.ui.R
+import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.theme.stronglyDeemphasizedAlpha
 
 @Composable
 fun OrSignUp(
-    onSignUp: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSignUp: () -> Unit
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(id = R.string.or),
+            text = StringResource.or,
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = stronglyDeemphasizedAlpha),
             modifier = Modifier.paddingFromBaseline(top = 25.dp)
@@ -36,7 +35,7 @@ fun OrSignUp(
                 .fillMaxWidth()
                 .padding(top = 20.dp, bottom = 24.dp),
         ) {
-            Text(text = stringResource(id = R.string.sign_up))
+            Text(text = StringResource.signUp)
         }
     }
 }

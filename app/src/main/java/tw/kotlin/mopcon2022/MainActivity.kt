@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import tw.kotlin.core.ui.SignIn
+import tw.kotlin.mopcon2022.ui.SuccessScreen
 import tw.kotlin.mopcon2022.ui.theme.MOPCON2022Theme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SignIn(onNavigationEvent ={})
+                    SuccessScreen()
                 }
             }
         }

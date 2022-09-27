@@ -1,4 +1,4 @@
-package tw.kotlin.core.ui
+package tw.kotlin.mopcon2022.ui
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -27,21 +27,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tw.kotlin.core.ui.components.Branding
 import tw.kotlin.core.ui.components.Email
+import tw.kotlin.core.ui.components.OrSignUp
 import tw.kotlin.core.ui.model.EmailState
 import tw.kotlin.core.ui.model.EmailStateSaver
 import tw.kotlin.core.ui.theme.stronglyDeemphasizedAlpha
 import tw.kotlin.core.ui.util.supportWideScreen
-import tw.kotlin.core.ui.welcome.components.Branding
-import tw.kotlin.core.ui.components.OrSignUp
-
-sealed class WelcomeEvent {
-    data class SignInSignUp(val email: String) : WelcomeEvent()
-    object SignInAsGuest : WelcomeEvent()
-}
+import tw.kotlin.mopcon2022.R
 
 @Composable
-fun WelcomeScreen(onEvent: (WelcomeEvent) -> Unit) {
+fun WelcomeScreen() {
     var showBranding by remember { mutableStateOf(true) }
 
     Surface(modifier = Modifier.supportWideScreen()) {
@@ -61,8 +57,7 @@ fun WelcomeScreen(onEvent: (WelcomeEvent) -> Unit) {
                 Modifier.fillMaxWidth()
             ) {
                 Branding(
-                    painter = painterResource(id = R.drawable.ic_logo),
-                    tagLine = stringResource(id = R.string.tagline)
+                    painter = painterResource(id = R.drawable.ic_logo)
                 )
             }
 
@@ -73,11 +68,12 @@ fun WelcomeScreen(onEvent: (WelcomeEvent) -> Unit) {
             )
 
             SignInCreateAccount(
-                onEvent = onEvent,
-                onFocusChange = { focused -> showBranding = !focused },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = 20.dp),
+                onFocusChange = { focused -> showBranding = !focused },
+                onSignIn = {},
+                onSignUp = {}
             )
         }
     }
@@ -85,9 +81,10 @@ fun WelcomeScreen(onEvent: (WelcomeEvent) -> Unit) {
 
 @Composable
 private fun SignInCreateAccount(
-    onEvent: (WelcomeEvent) -> Unit,
+    modifier: Modifier = Modifier,
     onFocusChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    onSignIn: (String) -> Unit,
+    onSignUp: () -> Unit
 ) {
     val emailState by rememberSaveable(stateSaver = EmailStateSaver) {
         mutableStateOf(EmailState())
@@ -102,7 +99,7 @@ private fun SignInCreateAccount(
         )
         val onSubmit = {
             if (emailState.isValid) {
-                onEvent(WelcomeEvent.SignInSignUp(emailState.text))
+                onSignIn(emailState.text)
             } else {
                 emailState.enableShowErrors()
             }
@@ -121,7 +118,7 @@ private fun SignInCreateAccount(
             )
         }
         OrSignUp(
-            onSignUp = { onEvent(WelcomeEvent.SignInAsGuest) },
+            onSignUp = onSignUp,
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -131,5 +128,5 @@ private fun SignInCreateAccount(
 @Preview(name = "Welcome dark theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen {}
+    WelcomeScreen()
 }

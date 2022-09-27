@@ -27,6 +27,7 @@ import tw.kotlin.core.ui.components.Password
 import tw.kotlin.core.ui.components.TopBar
 import tw.kotlin.core.ui.model.PasswordState
 import tw.kotlin.core.ui.model.VerificationCodeState
+import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.util.supportWideScreen
 
 sealed class SignInEvent {
@@ -48,7 +49,7 @@ fun SignIn(
         modifier = Modifier.supportWideScreen(),
         topBar = {
             TopBar(
-                topAppBarText = stringResource(id = R.string.sign_in),
+                topAppBarText = StringResource.signIn,
                 onBackPressed = { onNavigationEvent(SignInEvent.NavigateBack) }
             )
         },
@@ -131,7 +132,7 @@ fun SignInContent(
             enabled = passwordState.isValid && codeState.isValid
         ) {
             Text(
-                text = stringResource(id = R.string.sign_in)
+                text = StringResource.signIn
             )
         }
     }

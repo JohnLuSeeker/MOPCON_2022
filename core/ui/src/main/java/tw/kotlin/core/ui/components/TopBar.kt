@@ -15,9 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import tw.kotlin.core.ui.R
+import tw.kotlin.core.ui.theme.StringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +34,7 @@ fun TopBar(topAppBarText: String, onBackPressed: () -> Unit) {
             IconButton(onClick = onBackPressed) {
                 Icon(
                     imageVector = Icons.Filled.ChevronLeft,
-                    contentDescription = stringResource(id = R.string.back),
+                    contentDescription = StringResource.back,
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
