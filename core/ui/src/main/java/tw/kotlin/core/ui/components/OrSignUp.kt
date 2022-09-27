@@ -1,4 +1,4 @@
-package tw.kotlin.core.ui.welcome.components
+package tw.kotlin.core.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -33,7 +33,7 @@ import tw.kotlin.core.ui.model.EmailStateSaver
 import tw.kotlin.core.ui.theme.stronglyDeemphasizedAlpha
 import tw.kotlin.core.ui.util.supportWideScreen
 import tw.kotlin.core.ui.welcome.components.Branding
-import tw.kotlin.core.ui.welcome.components.OrSignUp
+import tw.kotlin.core.ui.components.OrSignUp
 
 sealed class WelcomeEvent {
     data class SignInSignUp(val email: String) : WelcomeEvent()
