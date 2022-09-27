@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import tw.kotlin.core.ui.welcome.WelcomeScreen
+import tw.kotlin.core.ui.WelcomeScreen
 import tw.kotlin.mopcon2022.ui.theme.MOPCON2022Theme
 
 class MainActivity : ComponentActivity() {
