@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +31,7 @@ import tw.kotlin.core.ui.components.Email
 import tw.kotlin.core.ui.components.OrSignUp
 import tw.kotlin.core.ui.model.EmailState
 import tw.kotlin.core.ui.model.EmailStateSaver
+import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.theme.stronglyDeemphasizedAlpha
 import tw.kotlin.core.ui.util.supportWideScreen
 import tw.kotlin.mopcon2022.R
@@ -91,7 +91,7 @@ private fun SignInCreateAccount(
     }
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
-            text = stringResource(id = R.string.sign_in_create_account),
+            text = StringResource.signInCreateAccount,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = stronglyDeemphasizedAlpha),
             textAlign = TextAlign.Center,
@@ -113,7 +113,7 @@ private fun SignInCreateAccount(
                 .padding(top = 28.dp, bottom = 3.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.sign_in),
+                text = StringResource.signIn,
                 style = MaterialTheme.typography.titleSmall
             )
         }

@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import tw.kotlin.core.ui.components.ErrorSnackbar
@@ -111,14 +110,14 @@ fun SignInContent(
 
 
         Password(
-            label = stringResource(id = R.string.password),
+            label = StringResource.password,
             passwordState = passwordState,
             modifier = Modifier.focusRequester(focusRequester),
             onImeAction = { onSubmit() }
         )
         Spacer(modifier = Modifier.height(16.dp))
         Password(
-            label = stringResource(id = R.string.verification_code),
+            label = StringResource.verificationCode,
             passwordState = codeState,
             modifier = Modifier.focusRequester(focusRequester),
             onImeAction = { onSubmit() }
