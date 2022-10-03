@@ -60,7 +60,7 @@ fun WelcomeScreen(
             ) {
                 Branding(
                     painter = painterResource(id = R.drawable.ic_logo),
-                    text = StringResource.tagLine
+                    text = StringResource.MOPCON
                 )
             }
 

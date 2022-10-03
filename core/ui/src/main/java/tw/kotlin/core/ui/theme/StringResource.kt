@@ -1,7 +1,7 @@
 package tw.kotlin.core.ui.theme
 
 object StringResource {
-    const val tagLine = "MOPCON 2022"
+    const val MOPCON = "MOPCON 2022"
     const val welcome = "Welcome"
     const val email = "Email"
     const val password = "Password"
