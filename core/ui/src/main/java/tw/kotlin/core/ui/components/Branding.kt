@@ -25,11 +25,12 @@ fun Branding(
     Column(
         modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically)
     ) {
-        Logo(
+        Image(
+            painter = painter,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(horizontal = 76.dp),
-            painter = painter
+                .padding(horizontal = 76.dp).clip(CircleShape),
+            contentDescription = null
         )
         Text(
             text = text,
@@ -40,16 +41,4 @@ fun Branding(
                 .fillMaxWidth()
         )
     }
-}
-
-@Composable
-private fun Logo(
-    modifier: Modifier = Modifier,
-    painter: Painter,
-) {
-    Image(
-        painter = painter,
-        modifier = modifier.clip(CircleShape),
-        contentDescription = null
-    )
 }
