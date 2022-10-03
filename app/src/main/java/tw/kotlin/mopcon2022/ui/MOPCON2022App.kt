@@ -25,7 +25,7 @@ fun MOPCON2022App() {
             onSignUp = { viewModel.nav(NavDestinations.SignUp) }
         )
         NavDestinations.SignIn -> SignInScreen(
-            byteArray = uiState.QRCode,
+            byteArray = uiState.qrCode,
             onSignIn = viewModel::signIn,
             onBackPressed = { viewModel.nav(NavDestinations.Welcome) }
         )

@@ -20,7 +20,6 @@ import tw.kotlin.mopcon2022.ui.NavDestinations
 class MainViewModel(
     private val api: RestApi
 ) : ViewModel() {
-    private var _username:String = ""
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.stateIn(
         viewModelScope,
@@ -73,7 +72,6 @@ class MainViewModel(
     fun signIn(password: String, code: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                Log.d("VVV", "${uiState.value.username} $password $code")
                 api.login(
                     UserLoginReqDTO(
                         username = uiState.value.username,
