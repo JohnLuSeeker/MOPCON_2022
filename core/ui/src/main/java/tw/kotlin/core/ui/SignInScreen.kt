@@ -29,13 +29,6 @@ import tw.kotlin.core.ui.model.VerificationCodeState
 import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.util.supportWideScreen
 
-sealed class SignInEvent {
-    data class SignIn(val password: String, val code: String) : SignInEvent()
-    object SignUp : SignInEvent()
-    object SignInAsGuest : SignInEvent()
-    object NavigateBack : SignInEvent()
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
