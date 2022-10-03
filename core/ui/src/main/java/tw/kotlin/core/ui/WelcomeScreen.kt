@@ -1,4 +1,4 @@
-package tw.kotlin.mopcon2022.ui
+package tw.kotlin.core.ui
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -34,10 +34,12 @@ import tw.kotlin.core.ui.model.EmailStateSaver
 import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.theme.stronglyDeemphasizedAlpha
 import tw.kotlin.core.ui.util.supportWideScreen
-import tw.kotlin.mopcon2022.R
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    onSignIn: (String) -> Unit,
+    onSignUp: () -> Unit
+) {
     var showBranding by remember { mutableStateOf(true) }
 
     Surface(modifier = Modifier.supportWideScreen()) {
@@ -57,7 +59,8 @@ fun WelcomeScreen() {
                 Modifier.fillMaxWidth()
             ) {
                 Branding(
-                    painter = painterResource(id = R.drawable.ic_logo)
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    text = StringResource.tagLine
                 )
             }
 
@@ -72,8 +75,8 @@ fun WelcomeScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
                 onFocusChange = { focused -> showBranding = !focused },
-                onSignIn = {},
-                onSignUp = {}
+                onSignIn = onSignIn,
+                onSignUp = onSignUp
             )
         }
     }
@@ -128,5 +131,5 @@ private fun SignInCreateAccount(
 @Preview(name = "Welcome dark theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen()
+    WelcomeScreen({}){}
 }

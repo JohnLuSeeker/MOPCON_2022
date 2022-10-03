@@ -1,4 +1,4 @@
-package tw.kotlin.mopcon2022.ui
+package tw.kotlin.core.ui
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import tw.kotlin.core.ui.components.Branding
+import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.util.supportWideScreen
-import tw.kotlin.mopcon2022.R
 
 @Composable
 fun SuccessScreen() {
@@ -29,7 +29,8 @@ fun SuccessScreen() {
             )
 
             Branding(
-                painter = painterResource(id = R.drawable.ic_logo)
+                painter = painterResource(id = R.drawable.ic_logo),
+                text = StringResource.welcome
             )
 
             Spacer(

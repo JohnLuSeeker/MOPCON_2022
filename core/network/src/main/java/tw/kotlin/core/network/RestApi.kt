@@ -14,33 +14,41 @@ import io.ktor.serialization.kotlinx.json.json
 import tw.kotlin.core.network.model.UserLoginReqDTO
 import tw.kotlin.core.network.model.UserSignupReqDTO
 
-val httpClient = HttpClient {
-    install(ContentNegotiation) {
-        json()
-    }
-    defaultRequest {
-        url("http://10.0.2.2:8080")
-    }
-    expectSuccess = true
+interface RestApi {
+    suspend fun signup(userSignupReqDTO: UserSignupReqDTO): HttpResponse
+    suspend fun qrcode(username: String): HttpResponse
+    suspend fun login(userLoginReqDTO: UserLoginReqDTO): HttpResponse
 }
 
-suspend fun signup(userSignupReqDTO: UserSignupReqDTO): HttpResponse =
-    httpClient.post("/user/signup") {
-        setBody(userSignupReqDTO)
-        contentType(ContentType.Application.Json)
+class RestApiImpl(
+    private val urlString: String
+) : RestApi {
+    private val httpClient = HttpClient {
+        install(ContentNegotiation) {
+            json()
+        }
+        defaultRequest {
+            url(urlString)
+        }
+        expectSuccess = true
     }
 
-suspend fun qrcode(username: String): HttpResponse =
-    httpClient.get("/user/qrcode") {
-        parameter("username", username)
-        contentType(ContentType.Image.PNG)
-    }
+    override suspend fun signup(userSignupReqDTO: UserSignupReqDTO): HttpResponse =
+        httpClient.post("/user/signup") {
+            setBody(userSignupReqDTO)
+            contentType(ContentType.Application.Json)
+        }
 
-fun qrcodeLink(username: String): String =
-    "http://10.0.2.2:8080/user/qrcode?$username"
+    override suspend fun qrcode(username: String): HttpResponse =
+        httpClient.get("/user/qrcode") {
+            parameter("username", username)
+            contentType(ContentType.Image.PNG)
+        }
 
-suspend fun login(userLoginReqDTO: UserLoginReqDTO): HttpResponse =
-    httpClient.post("/user/login") {
-        setBody(userLoginReqDTO)
-        contentType(ContentType.Application.Json)
-    }
+    override suspend fun login(userLoginReqDTO: UserLoginReqDTO): HttpResponse =
+        httpClient.post("/user/login") {
+            setBody(userLoginReqDTO)
+            contentType(ContentType.Application.Json)
+        }
+
+}

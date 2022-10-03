@@ -38,9 +38,10 @@ sealed class SignInEvent {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignIn(
-    byteArray: ByteArray = byteArrayOf(),
-    onNavigationEvent: (SignInEvent) -> Unit
+fun SignInScreen(
+    byteArray: ByteArray,
+    onSignIn: (String, String) -> Unit,
+    onBackPressed: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -49,7 +50,7 @@ fun SignIn(
         topBar = {
             TopBar(
                 topAppBarText = StringResource.signIn,
-                onBackPressed = { onNavigationEvent(SignInEvent.NavigateBack) }
+                onBackPressed = onBackPressed
             )
         },
         content = { paddingValues ->
@@ -63,9 +64,7 @@ fun SignIn(
                 Column(modifier = Modifier.fillMaxWidth()) {
                     SignInContent(
                         byteArray = byteArray,
-                        onSignInSubmitted = { password, code ->
-                            onNavigationEvent(SignInEvent.SignIn(password, code))
-                        }
+                        onSignIn = onSignIn
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -84,8 +83,8 @@ fun SignIn(
 
 @Composable
 fun SignInContent(
-    byteArray: ByteArray = byteArrayOf(),
-    onSignInSubmitted: (password: String, code: String) -> Unit,
+    byteArray: ByteArray,
+    onSignIn: (String, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -96,14 +95,14 @@ fun SignInContent(
         val codeState = remember { VerificationCodeState() }
         val onSubmit = {
             if (passwordState.isValid && codeState.isValid) {
-                onSignInSubmitted(passwordState.text, codeState.text)
+                onSignIn(passwordState.text, codeState.text)
             }
         }
 
         AsyncImage(
             model = byteArray,
             contentDescription = null,
-            modifier = Modifier.size(128.dp)
+            modifier = Modifier.size(256.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
