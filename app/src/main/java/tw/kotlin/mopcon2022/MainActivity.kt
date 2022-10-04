@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import tw.kotlin.core.ui.components.LogoPreview1
+import tw.kotlin.mopcon2022.ui.MOPCON2022App
 import tw.kotlin.mopcon2022.ui.theme.MOPCON2022Theme
 
 class MainActivity : ComponentActivity() {
@@ -22,8 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //MOPCON2022App()
-                    LogoPreview1()
+                    MOPCON2022App()
                 }
             }
         }
