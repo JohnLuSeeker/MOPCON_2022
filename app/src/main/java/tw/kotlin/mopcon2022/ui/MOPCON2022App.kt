@@ -9,12 +9,12 @@ import tw.kotlin.core.ui.SignInScreen
 import tw.kotlin.core.ui.SignUpScreen
 import tw.kotlin.core.ui.SuccessScreen
 import tw.kotlin.core.ui.WelcomeScreen
-import tw.kotlin.mopcon2022.MainViewModel
 import tw.kotlin.mopcon2022.MainViewModelFactory
+import tw.kotlin.mopcon2022.MainViewModelImpl
 
 @Composable
 fun MOPCON2022App() {
-    val viewModel: MainViewModel = viewModel(
+    val viewModel: MainViewModelImpl = viewModel(
         factory = MainViewModelFactory(RestApiImpl(urlString = "http://10.0.2.2:8080"))
     )
     val uiState by viewModel.uiState.collectAsState()

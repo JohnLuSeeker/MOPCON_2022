@@ -17,23 +17,31 @@ import tw.kotlin.core.network.model.UserSignupReqDTO
 import tw.kotlin.mopcon2022.ui.MainUiState
 import tw.kotlin.mopcon2022.ui.NavDestinations
 
-class MainViewModel(
+interface MainViewModel {
+    val uiState: StateFlow<MainUiState>
+    fun nav(navDestination: NavDestinations)
+    fun signUp(username: String, password: String)
+    fun qrcode(username: String)
+    fun signIn(password: String, code: String)
+}
+
+class MainViewModelImpl(
     private val api: RestApi
-) : ViewModel() {
+) : ViewModel(), MainViewModel {
     private val _uiState = MutableStateFlow(MainUiState())
-    val uiState: StateFlow<MainUiState> = _uiState.stateIn(
+    override val uiState: StateFlow<MainUiState> = _uiState.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         MainUiState()
     )
 
-    fun nav(navDestination: NavDestinations) {
+    override fun nav(navDestination: NavDestinations) {
         _uiState.value = _uiState.value.copy(
             currentScreen = navDestination
         )
     }
 
-    fun signUp(username: String, password: String) {
+    override fun signUp(username: String, password: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 api.signup(
@@ -43,7 +51,7 @@ class MainViewModel(
                     )
                 )
             }.onSuccess {
-                nav(NavDestinations.SignIn)
+                qrcode(username)
             }.onFailure {
                 Log.e("MainViewModel", it.toString())
             }
@@ -51,7 +59,7 @@ class MainViewModel(
     }
 
     @OptIn(InternalAPI::class)
-    fun qrcode(username: String) {
+    override fun qrcode(username: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 api.qrcode(
@@ -69,7 +77,7 @@ class MainViewModel(
         }
     }
 
-    fun signIn(password: String, code: String) {
+    override fun signIn(password: String, code: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 api.login(
@@ -91,6 +99,6 @@ class MainViewModel(
 class MainViewModelFactory(private val api: RestApi) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(api) as T
+        return MainViewModelImpl(api) as T
     }
 }
