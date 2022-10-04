@@ -5,9 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tw.kotlin.core.network.RestApiImpl
+import tw.kotlin.core.ui.HomeScreen
 import tw.kotlin.core.ui.SignInScreen
 import tw.kotlin.core.ui.SignUpScreen
-import tw.kotlin.core.ui.SuccessScreen
 import tw.kotlin.core.ui.WelcomeScreen
 import tw.kotlin.mopcon2022.MainViewModelFactory
 import tw.kotlin.mopcon2022.MainViewModelImpl
@@ -20,20 +20,20 @@ fun MOPCON2022App() {
     val uiState by viewModel.uiState.collectAsState()
 
     when (uiState.currentScreen) {
-        NavDestinations.Welcome -> WelcomeScreen(
+        NavDestinations.Home -> HomeScreen(
             onSignIn = viewModel::qrcode,
             onSignUp = { viewModel.nav(NavDestinations.SignUp) }
         )
         NavDestinations.SignIn -> SignInScreen(
             byteArray = uiState.qrCode,
             onSignIn = viewModel::signIn,
-            onBackPressed = { viewModel.nav(NavDestinations.Welcome) }
+            onBackPressed = { viewModel.nav(NavDestinations.Home) }
         )
         NavDestinations.SignUp -> SignUpScreen(
             onSignUp = viewModel::signUp,
-            onBackPressed = { viewModel.nav(NavDestinations.Welcome) }
+            onBackPressed = { viewModel.nav(NavDestinations.Home) }
         )
-        NavDestinations.Success -> SuccessScreen()
+        NavDestinations.Welcome -> WelcomeScreen()
     }
 
 }

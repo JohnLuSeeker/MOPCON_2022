@@ -88,7 +88,7 @@ class MainViewModelImpl(
                     )
                 )
             }.onSuccess {
-                nav(NavDestinations.Success)
+                nav(NavDestinations.Welcome)
             }.onFailure {
                 Log.e("MainViewModel", it.toString())
             }

@@ -4,12 +4,12 @@ import androidx.compose.runtime.Immutable
 import tw.kotlin.core.ui.theme.StringResource.password
 
 enum class NavDestinations {
-    Welcome, SignUp, SignIn, Success
+    Home, SignUp, SignIn, Welcome
 }
 
 @Immutable
 data class MainUiState(
-    val currentScreen: NavDestinations = NavDestinations.Welcome,
+    val currentScreen: NavDestinations = NavDestinations.Home,
     val username: String = "",
     val qrCode: ByteArray = byteArrayOf()
 ) {
