@@ -1,7 +1,5 @@
 package tw.kotlin.core.ui.model
 
-import java.util.regex.Pattern
-
 // Consider a verification code valid
 private const val VERIFICATION_CODE_VALIDATION_REGEX = "^\\d{6}\$"
 
@@ -16,5 +14,5 @@ private fun codeValidationError(code: String): String {
 }
 
 private fun isCodeValid(code: String): Boolean {
-    return Pattern.matches(VERIFICATION_CODE_VALIDATION_REGEX, code)
+    return VERIFICATION_CODE_VALIDATION_REGEX.toRegex().matches(code)
 }
