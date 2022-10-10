@@ -18,7 +18,7 @@ import tw.kotlin.core.ui.theme.StringResource
 import tw.kotlin.core.ui.util.supportWideScreen
 
 @Composable
-fun SuccessScreen(
+fun SignUpSuccessScreen(
     byteArray: ByteArray,
     navToSignIn: () -> Unit
 ) {

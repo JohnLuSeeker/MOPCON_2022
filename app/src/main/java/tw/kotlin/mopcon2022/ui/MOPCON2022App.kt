@@ -8,7 +8,7 @@ import tw.kotlin.core.network.RestApiImpl
 import tw.kotlin.core.ui.HomeScreen
 import tw.kotlin.core.ui.SignInScreen
 import tw.kotlin.core.ui.SignUpScreen
-import tw.kotlin.core.ui.SuccessScreen
+import tw.kotlin.core.ui.SignUpSuccessScreen
 import tw.kotlin.core.ui.WelcomeScreen
 import tw.kotlin.mopcon2022.MainViewModelFactory
 import tw.kotlin.mopcon2022.MainViewModelImpl
@@ -33,7 +33,7 @@ fun MOPCON2022App() {
             onSignUp = viewModel::signUp,
             onBackPressed = { viewModel.nav(NavDestinations.Home) }
         )
-        NavDestinations.SignUpSucceed -> SuccessScreen(
+        NavDestinations.SignUpSucceed -> SignUpSuccessScreen(
             byteArray = uiState.qrCode,
             navToSignIn = { viewModel.nav(NavDestinations.SignIn) }
         )

@@ -9,7 +9,6 @@ enum class NavDestinations {
 @Immutable
 data class MainUiState(
     val currentScreen: NavDestinations = NavDestinations.Home,
-    val username: String = "",
     val qrCode: ByteArray = byteArrayOf()
 ) {
     override fun equals(other: Any?): Boolean {
@@ -19,7 +18,6 @@ data class MainUiState(
         other as MainUiState
 
         if (currentScreen != other.currentScreen) return false
-        if (username != other.username) return false
         if (!qrCode.contentEquals(other.qrCode)) return false
 
         return true
@@ -27,7 +25,6 @@ data class MainUiState(
 
     override fun hashCode(): Int {
         var result = currentScreen.hashCode()
-        result = 31 * result + username.hashCode()
         result = 31 * result + qrCode.contentHashCode()
         return result
     }

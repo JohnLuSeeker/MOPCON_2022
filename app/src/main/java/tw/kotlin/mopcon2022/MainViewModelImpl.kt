@@ -67,7 +67,6 @@ class MainViewModelImpl(
                 )
             }.onSuccess {
                 _uiState.value = _uiState.value.copy(
-                    username = username,
                     qrCode = it.content.toByteArray()
                 )
                 nav(NavDestinations.SignUpSucceed)
