@@ -19,11 +19,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Branding(
+    modifier: Modifier = Modifier,
     painter: Painter,
     text: String
 ) {
     Column(
-        modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
+        modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Logo(painter = painter)

@@ -1,10 +1,9 @@
 package tw.kotlin.mopcon2022.ui
 
 import androidx.compose.runtime.Immutable
-import tw.kotlin.core.ui.theme.StringResource.password
 
 enum class NavDestinations {
-    Home, SignUp, SignIn, Welcome
+    Home, SignUp, SignUpSucceed, SignIn, Welcome
 }
 
 @Immutable
@@ -29,7 +28,6 @@ data class MainUiState(
     override fun hashCode(): Int {
         var result = currentScreen.hashCode()
         result = 31 * result + username.hashCode()
-        result = 31 * result + password.hashCode()
         result = 31 * result + qrCode.contentHashCode()
         return result
     }

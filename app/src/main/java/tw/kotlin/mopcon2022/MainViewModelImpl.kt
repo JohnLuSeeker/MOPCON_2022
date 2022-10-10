@@ -22,7 +22,7 @@ interface MainViewModel {
     fun nav(navDestination: NavDestinations)
     fun signUp(username: String, password: String)
     fun qrcode(username: String)
-    fun signIn(password: String, code: String)
+    fun signIn(username: String, password: String, code: String)
 }
 
 class MainViewModelImpl(
@@ -70,19 +70,19 @@ class MainViewModelImpl(
                     username = username,
                     qrCode = it.content.toByteArray()
                 )
-                nav(NavDestinations.SignIn)
+                nav(NavDestinations.SignUpSucceed)
             }.onFailure {
                 Log.e("MainViewModel", it.toString())
             }
         }
     }
 
-    override fun signIn(password: String, code: String) {
+    override fun signIn(username: String, password: String, code: String) {
         viewModelScope.launch {
             kotlin.runCatching {
                 api.login(
                     UserLoginReqDTO(
-                        username = uiState.value.username,
+                        username = username,
                         password = password,
                         code = code
                     )

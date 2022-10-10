@@ -7,23 +7,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import tw.kotlin.core.ui.components.Email
 import tw.kotlin.core.ui.components.ErrorSnackbar
 import tw.kotlin.core.ui.components.Password
 import tw.kotlin.core.ui.components.TopBar
+import tw.kotlin.core.ui.model.EmailState
+import tw.kotlin.core.ui.model.EmailStateSaver
 import tw.kotlin.core.ui.model.PasswordState
 import tw.kotlin.core.ui.model.VerificationCodeState
 import tw.kotlin.core.ui.theme.StringResource
@@ -32,8 +37,7 @@ import tw.kotlin.core.ui.util.supportWideScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-    byteArray: ByteArray,
-    onSignIn: (String, String) -> Unit,
+    onSignIn: (String, String, String) -> Unit,
     onBackPressed: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -56,7 +60,6 @@ fun SignInScreen(
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     SignInContent(
-                        byteArray = byteArray,
                         onSignIn = onSignIn
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -76,31 +79,27 @@ fun SignInScreen(
 
 @Composable
 fun SignInContent(
-    byteArray: ByteArray,
-    onSignIn: (String, String) -> Unit
+    onSignIn: (String, String, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val focusRequester = remember { FocusRequester() }
+        val emailState by rememberSaveable(stateSaver = EmailStateSaver) {
+            mutableStateOf(EmailState())
+        }
         val passwordState = remember { PasswordState() }
         val codeState = remember { VerificationCodeState() }
         val onSubmit = {
-            if (passwordState.isValid && codeState.isValid) {
-                onSignIn(passwordState.text, codeState.text)
+            if (emailState.isValid && passwordState.isValid && codeState.isValid) {
+                onSignIn(emailState.text, passwordState.text, codeState.text)
             }
         }
 
-        AsyncImage(
-            model = byteArray,
-            contentDescription = null,
-            modifier = Modifier.size(256.dp)
-        )
-
         Spacer(modifier = Modifier.height(16.dp))
-
-
+        Email(emailState = emailState, imeAction = ImeAction.Done, onImeAction = onSubmit)
+        Spacer(modifier = Modifier.height(16.dp))
         Password(
             label = StringResource.password,
             passwordState = passwordState,
@@ -120,7 +119,7 @@ fun SignInContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            enabled = passwordState.isValid && codeState.isValid
+            enabled = emailState.isValid && passwordState.isValid && codeState.isValid
         ) {
             Text(
                 text = StringResource.signIn
